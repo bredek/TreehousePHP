@@ -18,7 +18,7 @@ include("inc/header.php"); ?>
             foreach ($random as $id) {
                 echo get_item_html($id,$catalog[$id]);
             }
-            ?>								
+            ?>							
 				</ul>
 
 			</div>

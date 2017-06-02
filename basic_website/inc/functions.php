@@ -21,6 +21,7 @@ function array_category($catalog,$category) {
             $output[$id] = $sort;            
         }
     }
+    
     asort($output);
     return array_keys($output);
 }

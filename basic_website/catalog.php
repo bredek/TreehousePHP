@@ -23,12 +23,12 @@ include("inc/header.php"); ?>
 <div class="section catalog page">
     
     <div class="wrapper">
-        <div class="breadcrumbs">
-            <a href="catalog.php">Full catalog</a> 
-            > 
-            <?php echo ucfirst($section); ?>
-        </div>
-        <h1><?php echo $pageTitle; ?></h1>
+        
+        <h1><?php 
+        if ($section != null) {
+            echo "<a href='catalog.php'>Full Catalog</a> &gt; ";
+        }
+        echo $pageTitle; ?></h1>
         
         <ul class="items">
             <?php
@@ -38,7 +38,7 @@ include("inc/header.php"); ?>
             }
             ?>
         </ul>
-    
+        
     </div>
 </div>
 

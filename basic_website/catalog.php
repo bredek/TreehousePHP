@@ -1,13 +1,9 @@
 <?php 
+// get data
+include("inc/data.php"); 
 // default title
 $title = 'Catalog';
 $section = null;
-// array of books
-$catalog = [
-    "Design patterns",
-    "Forest Gump",
-    "Beethoven"
-];
 // check if we have category set
 if(isset($_GET["cat"])){
     if($_GET["cat"] == "books") {
@@ -27,12 +23,20 @@ include("inc/header.php");
 <div class="section page catalog">
     <div class="wrapper">
         <h1><?php echo $title; ?> page</h1>
-        <ul>
+        <ul class="items">
 
-            <?php foreach ($catalog as $value) : ?>
+            <?php foreach ($catalog as $item) : ?>
 
-                <li> <?php echo $value; ?> </li>
-                
+                <li>
+                    <a href="#">
+                        <img 
+                            src="<?php echo $item['img']; ?> " 
+                            alt="<?php echo $item['title']; ?>"
+                        >
+                        <p>View info</p>
+                    </a>
+                </li>
+
             <?php endforeach; ?>
 
         </ul>

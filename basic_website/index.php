@@ -20,4 +20,5 @@ include("inc/header.php");
 		</div>
 
 	</div>
+<!--get footer-->
 <?php include("inc/footer.php"); ?>

@@ -1,4 +1,7 @@
-<?php include("inc/header.php"); ?>
+<?php 
+$title = 'Index';
+include("inc/header.php"); 
+?>
 		<div class="section catalog random">
 
 			<div class="wrapper">

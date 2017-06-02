@@ -1,5 +1,3 @@
-<?php $title = 'My website title';?>
-
 <html>
 
 <head>

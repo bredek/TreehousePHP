@@ -1,5 +1,6 @@
 <?php 
 $title = 'Suggest';
+$section = 'Suggest';
 include("inc/header.php"); 
 ?>
 

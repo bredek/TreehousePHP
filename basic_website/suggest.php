@@ -11,64 +11,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $details = trim(filter_input(INPUT_POST,"details",FILTER_SANITIZE_SPECIAL_CHARS));
     
     if ($name == "" || $email == "" || $category == "" || $title == "") {
-        echo "Please fill in the required fields: Name, Email, Category and Title";
-        exit;
+        $error_message = "Please fill in the required fields: Name, Email, Category and Title";
     }
-    if ($_POST["address"] != "") {
-        echo "Bad form input";
-        exit;
+    if (!isset($error_message) && $_POST["address"] != "") {
+        $error_message = "Bad form input";
     }
     
     require("inc/phpmailer/class.phpmailer.php");
     
     $mail = new PHPMailer;
     
-    if (!$mail->ValidateAddress($email)) {
-        echo "Invalid Email Address";
-        exit;
+    if (!isset($error_message) && !$mail->ValidateAddress($email)) {
+        $error_message = "Invalid Email Address";
     }
     
-    $email_body = "";
-    $email_body .= "Name " . $name . "\n";
-    $email_body .= "Email " . $email . "\n";
-    $email_body .= "Suggested Item\n";
-    $email_body .= "Category " . $category . "\n";
-    $email_body .= "Title " . $title . "\n";
-    $email_body .= "Format " . $format . "\n";
-    $email_body .= "Genre " . $genre . "\n";
-    $email_body .= "Year " . $year . "\n";
-    $email_body .= "Details " . $details . "\n";
-    
-    $mail->setFrom($email, $name);
-    $mail->addAddress('treehouse@localhost', 'Alena');     // Add a recipient
-    
-    $mail->isHTML(false);                                  // Set email format to HTML
-    
-    $mail->Subject = 'Personal Media Library Suggestion from ' . $name;
-    $mail->Body    = $email_body;
-    
-    if(!$mail->send()) {
-        echo 'Message could not be sent.';
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
-        exit;
+    if (!isset($error_message)) {
+        $email_body = "";
+        $email_body .= "Name " . $name . "\n";
+        $email_body .= "Email " . $email . "\n";
+        $email_body .= "Suggested Item\n";
+        $email_body .= "Category " . $category . "\n";
+        $email_body .= "Title " . $title . "\n";
+        $email_body .= "Format " . $format . "\n";
+        $email_body .= "Genre " . $genre . "\n";
+        $email_body .= "Year " . $year . "\n";
+        $email_body .= "Details " . $details . "\n";
+        
+        $mail->setFrom($email, $name);
+        $mail->addAddress('treehouse@localhost', 'Alena');     // Add a recipient
+        
+        $mail->isHTML(false);                                  // Set email format to HTML
+        
+        $mail->Subject = 'Personal Media Library Suggestion from ' . $name;
+        $mail->Body    = $email_body;
+        
+        if($mail->send()) {
+            header("location:suggest.php?status=thanks");
+            exit;
+        }
+        $error_message = 'Message could not be sent.';
+        $error_message .= 'Mailer Error: ' . $mail->ErrorInfo;
     }
     
-    
-    header("location:suggest.php?status=thanks");
 }
 
 $pageTitle = "Suggest a Media Item";
 $section = "suggest";
 
-include("inc/header.php"); ?>
+include("inc/header.php"); 
+?>
 
 <div class="section page">
     <div class="wrapper">
         <h1>Suggest a Media Item</h1>
         <?php if (isset($_GET["status"]) && $_GET["status"] == "thanks") {
             echo "<p>Thanks for the email! I&rsquo;ll check out your suggestion shortly!</p>";
-        } else { ?>
-        <p>If you think there is something I&rsquo;m missing, let me know! Complete the form to send me an email.</p>
+        } else {
+            if (isset($error_message)) {
+                echo "<p class='message'>".$error_message . "</p>";
+            } else {
+                echo "<p>If you think there is something I&rsquo;m missing, let me know! Complete the form to send me an email.</p>";
+            }
+        ?>
         <form method="post" action="suggest.php">
             <table>
             <tr>

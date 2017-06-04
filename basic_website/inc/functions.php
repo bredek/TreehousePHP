@@ -17,9 +17,11 @@ function single_item_array($id) {
 
     try {
        $results = $db->query(
-         "SELECT Media.media_id, title, category, img, format, year, genre FROM Media
+         "SELECT Media.media_id, title, category,img, format, year, genre 
+         FROM Media
          JOIN Genres ON Media.genre_id = Genres.genre_id
-         LEFT OUTER JOIN Books ON Media.media_id = Books.media_id
+         LEFT OUTER JOIN Books 
+         ON Media.media_id = Books.media_id
          WHERE Media.media_id = $id"
        );
     } catch (Exception $e) {
@@ -30,7 +32,7 @@ function single_item_array($id) {
     $catalog = $results->fetch();
     return $catalog;
 }
-var_dump(single_item_array(1));
+
 function get_item_html($id,$item) {
     $output = "<li><a href='details.php?id="
         . $id . "'><img src='" 

@@ -662,12 +662,12 @@ form input[type="submit"] {
     padding: 1em;
     width: 444px;
 }
-.breadcrumbs {
+.breadcrumb {
     font-size: 14px;
     font-weight: normal;
     padding: 14px 0 48px;
 }
-  .breadcrumbs a {
+  .breadcrumb a {
     text-decoration: none;
     color: #3888c2;
   }

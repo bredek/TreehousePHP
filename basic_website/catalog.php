@@ -1,6 +1,8 @@
 <?php 
 include("inc/functions.php");
 $catalog = full_catalog_array();
+echo "Full Catalog";
+var_dump($catalog);
 
 $pageTitle = "Full Catalog";
 $section = null;
@@ -33,6 +35,7 @@ include("inc/header.php"); ?>
         <ul class="items">
             <?php
             $categories = array_category($catalog,$section);
+var_dump($categories);
             foreach ($categories as $id) {
                 echo get_item_html($id,$catalog[$id]);
             }
